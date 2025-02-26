@@ -1,2 +1,4 @@
-langchain
-anthropic
+pydantic-ai
+pymed
+haystack-ai
+transformers
