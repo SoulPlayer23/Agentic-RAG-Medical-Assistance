@@ -62,12 +62,15 @@ async def main():
     # Create user context
     user_context = UserContext(
         user_id="user123",
+        preferred_number_of_papers=5,
+        attachment=None
     )
 
     queries = [
         "Is there any new research on Diabetes?",
         "Does patient 456 have any allergies?",
         "Where is leaning tower of pisa located?",
+        "I have fever, cough, loss of taste. What disease do I have?",
     ]
 
     for query in queries:
@@ -106,6 +109,18 @@ async def main():
                 print("\nRecommendations:")
                 for i, recommendation in enumerate(patient.recommendations, 1):
                     print(f"  {i}. {recommendation}")
+
+            elif hasattr(result.final_output, "diagnosis") and hasattr(result.final_output, "recommendations"):
+                diagnosis = result.final_output
+                print("\n 🏥 DIAGNOSIS DETAILS 🏥")
+                print("\nSymptoms:")
+                for i, history in enumerate(diagnosis.symptoms, 1):
+                    print(f"  {i}. {history}")
+                print(f"Diagnosis: {diagnosis.diagnosis}")
+                print(f"Confidence: {diagnosis.confidence}")
+                print("\nRecommendations:")
+                for i, report in enumerate(diagnosis.recommendations, 1):
+                    print(f"  {i}. {report}")
             
             else:  # Generic response
                 print(result.final_output)
