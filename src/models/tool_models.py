@@ -28,5 +28,4 @@ class Diagnosis(BaseModel):
 # Model for Report Analysis
 class ReportAnalysis(BaseModel):
     analysis: str
-    report: str
     recommendations: List[str] = Field(description="Recommendations based on the analysis.")

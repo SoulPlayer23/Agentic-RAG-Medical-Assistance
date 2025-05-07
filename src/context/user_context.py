@@ -6,3 +6,5 @@ class UserContext:
     user_id: str
     preferred_number_of_papers: int = 5
     attachment: object = None
+    attachment_type: str = None
+    attachment_name: str = None

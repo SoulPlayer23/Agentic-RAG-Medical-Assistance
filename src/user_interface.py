@@ -141,9 +141,26 @@ def format_agent_response(output):
             html += "</ul>"
             
             return html
+        
+        elif "analysis" in output:  # Report Analysis
+            html = f"""
+            <h3>Report/Scan Analysis</h3>
+            <p><strong>Analysis:</strong> {output.get('analysis', 'N/A')} </p>
+            
+            <h4>Recommendations:</h4>
+            <ul>
+            """
+            for recommendation in output.get('recommendations', []):
+                html += f"<li>{recommendation}</li>"
+            html += "</ul>"
+            
+            return html
+        
+        else:
+            html = f"{output.get('response', 'N/A')}"
     
-    # Default: return as string
-    return str(output)
+    # Default
+    return html
 
 # Function to handle user input
 def handle_user_message(user_input: str):
@@ -180,6 +197,8 @@ with st.sidebar:
     
     if st.button("Save Preferences"):
         st.session_state.user_context.preferred_number_of_papers = preferred_number_papers
+        st.session_state.user_context.attachment_type = attachment.type if attachment else None
+        st.session_state.user_context.attachment_name = attachment.name if attachment else None
         st.session_state.user_context.attachment = attachment
         st.success("Preferences saved!")
     

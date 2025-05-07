@@ -13,11 +13,12 @@ from context.user_context import UserContext
 from specialized_agents.query_analysis_agent import query_analysis_agent
 from specialized_agents.pubmed_retriever_agent import pubmed_retriever_agent
 from specialized_agents.patient_retriever_agent import patient_retriever_agent
+from specialized_agents.diagnosis_agent import diagnose_agent
+from specialized_agents.report_analysis_agent import report_analysis_agent
+
 
 # Load environment variables
 load_dotenv()
-
-
 
 # Set tracing export API key if needed
 set_tracing_export_api_key(os.getenv('OPENAI_API_KEY'))
@@ -29,7 +30,7 @@ model = os.getenv('MODEL_CHOICE', 'gpt-4o-mini')
 async def medical_guardrail(ctx, agent, input_data):
     """Check if the input data is related to medical queries."""
     try:
-        analysis_prompt = f"The user is asking '{input_data}'. \nAnalyze if their query is related to medical queries."
+        analysis_prompt = f"The user is asking '{str(input_data)}'. \nAnalyze if their latest query is related to medical queries."
         result = await Runner.run(query_analysis_agent, analysis_prompt, context=ctx.context)
         final_output = result.final_output_as(QueryAnalysis)
 
@@ -52,7 +53,7 @@ orchestrator_agent = Agent(
     name="Orchestrator Agent",
     instructions=orchestrator_agent_prompt,
     model = model,
-    handoffs=[pubmed_retriever_agent, patient_retriever_agent],
+    handoffs=[pubmed_retriever_agent, patient_retriever_agent, diagnose_agent, report_analysis_agent],
     input_guardrails=[InputGuardrail(guardrail_function=medical_guardrail)],
     output_type=StructuredResponse
 )
@@ -82,6 +83,7 @@ async def main():
         
             print("\nFINAL RESPONSE:")
             
+            print(f"\nHandoff to: {result.last_agent.name}")
             # Format the output based on the type of response
             if hasattr(result.final_output, "title"):
                 pubmed_response = result.final_output
