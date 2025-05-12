@@ -1,32 +1,32 @@
 from agents import function_tool, RunContextWrapper
 from context.user_context import UserContext
 import json
+from pymed import PubMed
+
+from models.tool_models import PubMedResponse
 
 @function_tool
-def retrieve_from_pubmed(wrapper: RunContextWrapper[UserContext],keyword: str) -> str:
+def retrieve_from_pubmed(wrapper: RunContextWrapper[UserContext],keyword: str) -> list[PubMedResponse]:
     """Retrieve relevant medical research papers from PubMed based on the user's query."""
-    # Mock JSON data for demonstration purposes
-    pubmed_data = {
-        "Diabetes": {
-            "title": "Latest Treatments for Diabetes",
-            "abstract": "This paper discusses the latest treatments for diabetes.",
-            "citations": ["paper-a", "paper-b"],
-        },
-        "Lung Cancer": {
-            "title": "Advancements in treatment of Lung Cancer",
-            "abstract": "This paper discusses advancements in treatment of Lung Cancer.",
-            "citations": ["paper-x", "paper-y"],
-        },
-        "MRI Scans": {
-            "title": "Innovations in MRI Scans",
-            "abstract": "This paper discusses innovations in MRI scans.",
-            "citations": ["paper-z"],
-        },
-        "Ebola": {
-            "title": "Ebola Virus Disease",
-            "abstract": "This paper discusses the Ebola virus disease.",
-            "citations": ["paper-1", "paper-2"],
-        }
-    }
-    if keyword in pubmed_data:
-        return json.dumps(pubmed_data[keyword])
+    from_date = wrapper.context.from_date.strftime("%Y/%m/%d")
+    to_date = wrapper.context.to_date.strftime("%Y/%m/%d")
+    top_n_papers = int(wrapper.context.preferred_number_of_papers)
+    
+    results = fetch_papers(from_date, to_date, top_n_papers, keyword)
+    
+    return results
+    
+def fetch_papers(from_date: str, to_date: str, top_n_papers: int, keyword: str):
+    pubmed_client = PubMed(tool="PubMedRetriever", email="venkiteshsa@gmail.com")
+    query = f'(("{from_date}"[Date - Publication] : "{to_date}"[Date - Publication])) AND ({keyword}[Text Word])'
+    print(f"Query: {query}")
+    results = pubmed_client.query(query, max_results=top_n_papers)
+    papers = list(results)
+    pubmed_responses = []
+    for paper in papers:
+        response = PubMedResponse(
+            title=paper.title,
+            abstract=paper.abstract
+        )
+        pubmed_responses.append(response)
+    return pubmed_responses

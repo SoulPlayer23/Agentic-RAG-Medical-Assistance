@@ -5,7 +5,6 @@ from pydantic import BaseModel, Field
 class PubMedResponse(BaseModel):
     title: str
     abstract: str
-    citations: List[str]
 
 # Model for Patient Retriever
 class PatientResponse(BaseModel):

@@ -90,9 +90,6 @@ async def main():
                 print("\n 📄 PUBMED RESEARCH PAPER 📄")
                 print(f"Title: {pubmed_response.title}")
                 print(f"Abstract: {pubmed_response.abstract}")
-                print("\nCitations:")
-                for citation in pubmed_response.citations:
-                    print(f"  - {citation}")
                 
             elif hasattr(result.final_output, "patient_id") and hasattr(result.final_output, "patient_name"):
                 patient = result.final_output

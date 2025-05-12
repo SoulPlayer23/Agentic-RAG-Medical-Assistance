@@ -7,6 +7,8 @@ from datetime import datetime
 from app import orchestrator_agent, UserContext
 from agents import InputGuardrailTripwireTriggered, Runner
 
+from models.tool_models import Diagnosis, PatientResponse, PubMedResponse, ReportAnalysis
+
 # Page configuration
 st.set_page_config(
     page_title="MediCortex AI",
@@ -73,91 +75,90 @@ if "processing_message" not in st.session_state:
 
 # Function to format agent responses based on output type
 def format_agent_response(output):
+    html = ""
     # Check if output is a Pydantic model and convert to dict
     if hasattr(output, "model_dump"):
         output = output.model_dump()
     
-    if isinstance(output, dict):
-        # Handle structured outputs
-        if "patient_id" in output:  # Patient Retrieval
-            html = f"""
-            <h3>Patient Details: {output.get('patient_name', ' ')}</h3>
-            <p><strong>Patient ID:</strong> {output.get('patient_id', 'N/A')}</p>
-            <p><strong>Name:</strong> {output.get('patient_name', 'N/A')}</p>
-            <p><strong>Age:</strong> {output.get('age', 'N/A')} days</p>
-            <p><strong>Gender:</strong> ${output.get('budget', 'N/A')}</p>
-            
-            <h4>Medical history:</h4>
-            <ul>
-            """
-            for history in output.get('medical_history', []):
-                html += f"<li>{history}</li>"
-            html += "</ul>"
-            
-            html += f"<<h4>Lab reports:</h4>"
-            html += "<ul>"
-            for report in output.get('lab_reports', []):
-                html += f"<li>{report}</li>"
-            html += "</ul>"
-            
-            html += f"<p><strong>Diagnosis:</strong> {output.get('diagnosis', '')}</p>"
-
-            html += f"<<h4>Recommendations:</h4>"
-            html += "<ul>"
-            for recommendation in output.get('recommendations', []):
-                html += f"<li>{recommendation}</li>"
-            html += "</ul>"
-
-            return html
-            
-        elif "symptoms" in output:  # Diagnosis
-            html = f"""
-            <h3>Diagnosis</h3>
-            <p><strong>Symptoms:</strong> {output.get('symptoms', 'N/A')}</p>
-            <p><strong>Diagnosis:</strong> {output.get('diagnosis', 'N/A')}</p>
-            <p><strong>Confidence:</strong> {output.get('confidence', 'N/A')}</p>
-
-            <h4>Recommendations:</h4>
-            <ul>
-            """
-
-            for recommendation in output.get('recommendations', []):
-                html += f"<li>{recommendation}</li>"
-            html += "</ul>"
-
-            return html
-            
-        elif "citations" in output:  # PubMed Retrieval
-            html = f"""
-            <h3>PubMed Papers</h3>
-            <p><strong>Title:</strong> {output.get('title', 'N/A')}</p>
-            <p><strong>Abstract:</strong> {output.get('abstract', 'N/A')}</p>
-            
-            <h4>Citations:</h4>
-            <ul>
-            """
-            for citation in output.get('citations', []):
-                html += f"<li>{citation}</li>"
-            html += "</ul>"
-            
-            return html
+    if isinstance(output, PatientResponse):  # Patient Retrieval
+        html = f"""
+        <h3>Patient Details: {output.patient_name}</h3>
+        <p><strong>Patient ID:</strong> {output.patient_id}</p>
+        <p><strong>Name:</strong> {output.patient_name}</p>
+        <p><strong>Age:</strong> {output.age} days</p>
+        <p><strong>Gender:</strong> ${output.gender}</p>
         
-        elif "analysis" in output:  # Report Analysis
-            html = f"""
-            <h3>Report/Scan Analysis</h3>
-            <p><strong>Analysis:</strong> {output.get('analysis', 'N/A')} </p>
-            
-            <h4>Recommendations:</h4>
-            <ul>
-            """
-            for recommendation in output.get('recommendations', []):
-                html += f"<li>{recommendation}</li>"
-            html += "</ul>"
-            
-            return html
+        <h4>Medical history:</h4>
+        <ul>
+        """
+        for history in output.medical_history:
+            html += f"<li>{history}</li>"
+        html += "</ul>"
         
-        else:
-            html = f"{output.get('response', 'N/A')}"
+        html += f"<h4>Lab reports:</h4>"
+        html += "<ul>"
+        for report in output.lab_reports:
+            html += f"<li>{report}</li>"
+        html += "</ul>"
+        
+        html += f"<p><strong>Diagnosis:</strong> {output.diagnosis}</p>"
+
+        html += f"<h4>Recommendations:</h4>"
+        html += "<ul>"
+        for recommendation in output.recommendations:
+            html += f"<li>{recommendation}</li>"
+        html += "</ul>"
+
+        return html
+        
+    elif isinstance(output, Diagnosis):  # Diagnosis
+        html = f"""
+        <h3>Diagnosis</h3>
+        <p><strong>Symptoms:</strong> {output.symptoms}</p>
+        <p><strong>Diagnosis:</strong> {output.diagnosis}</p>
+        <p><strong>Confidence:</strong> {output.confidence}</p>
+
+        <h4>Recommendations:</h4>
+        <ul>
+        """
+
+        for recommendation in output.recommendations:
+            html += f"<li>{recommendation}</li>"
+        html += "</ul>"
+
+        return html
+        
+    elif isinstance(output, list) and all(isinstance(p, PubMedResponse) for p in output): 
+        html = """
+        <h3>PubMed Papers</h3>
+        <ol>
+        """
+        for paper in output:
+            html += f"""
+            <li>
+                <h4>{paper.title}</h4>
+                <p><strong>Abstract:</strong> {paper.abstract}</p>
+            </li>
+            """
+        html += "</ol>"
+        return html
+    
+    elif isinstance(output, ReportAnalysis):  # Report Analysis
+        html = f"""
+        <h3>Report/Scan Analysis</h3>
+        <p><strong>Analysis:</strong> {output.analysis} </p>
+        
+        <h4>Recommendations:</h4>
+        <ul>
+        """
+        for recommendation in output.recommendations:
+            html += f"<li>{recommendation}</li>"
+        html += "</ul>"
+        
+        return html
+    
+    else:
+        html = f"{output.get('response', 'N/A')}"
     
     # Default
     return html
@@ -183,9 +184,19 @@ with st.sidebar:
     traveler_name = st.text_input("Your Name", value="User")
     
     st.subheader("Query Preferences")
-    preferred_number_papers = st.multiselect(
+    preferred_number_papers = st.selectbox(
         "Prefferred Number of Papers",
         options=["1", "2", "3", "4", "5"]
+    )
+
+    st.subheader("Date Range")
+    from_date = st.date_input(
+        "From Date",
+        value=datetime.now().date()
+    )
+    to_date = st.date_input(
+        "To Date",
+        value=datetime.now().date()
     )
     
     attachment = st.file_uploader(
@@ -200,6 +211,8 @@ with st.sidebar:
         st.session_state.user_context.attachment_type = attachment.type if attachment else None
         st.session_state.user_context.attachment_name = attachment.name if attachment else None
         st.session_state.user_context.attachment = attachment
+        st.session_state.user_context.from_date = from_date
+        st.session_state.user_context.to_date = to_date
         st.success("Preferences saved!")
     
     st.divider()

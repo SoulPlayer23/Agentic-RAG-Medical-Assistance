@@ -11,5 +11,5 @@ pubmed_retriever_agent = Agent(
     instructions=pubmed_retriever_prompt,
     model=get_model(),
     tools=[retrieve_from_pubmed],
-    output_type=PubMedResponse
+    output_type=list[PubMedResponse]
 )

@@ -58,7 +58,10 @@ async def pdf_report_analysis(query: str, context: UserContext):
     response = client.responses.parse(
         model=get_model(),
         input=input,
-        text_format=ReportAnalysis
+        text_format=ReportAnalysis,
+        temperature=1,
+        max_output_tokens=2048,
+        top_p=1,
     )
 
     analysis = response.output_parsed
