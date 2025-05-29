@@ -8,5 +8,5 @@ query_analysis_agent = Agent(
     name="Query Analysis Agent",
     instructions=query_analysis_prompt,
     output_type=QueryAnalysis,
-    model=get_model()
+    model=get_model("agent")
 )

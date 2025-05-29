@@ -9,7 +9,7 @@ patient_retriever_agent = Agent(
     name="Patient Retriever",
     handoff_description="Retrieve patient details and analysis.",
     instructions=patient_retriever_prompt,
-    model=get_model(),
+    model=get_model("agent"),
     tools=[patient_retriever],
-    output_type=PatientResponse
+    output_type=list[PatientResponse]
 )

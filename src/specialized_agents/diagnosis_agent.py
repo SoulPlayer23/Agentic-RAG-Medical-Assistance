@@ -10,5 +10,6 @@ diagnose_agent = Agent(
     handoff_description="Diagnose based on symptoms provided.",
     instructions=diagnosis_prompt,
     tools=[diagnose],
+    model=get_model("agent"),
     output_type=Diagnosis
 )

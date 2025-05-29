@@ -11,7 +11,7 @@ pdf_analysis_agent = Agent(
     handoff_description="Analyse a patient PDF medical report",
     instructions=pdf_analysis_agent_prompt,
     tools=[analyze_pdf_report],
-    model=get_model(),
+    model=get_model("agent"),
     output_type=ReportAnalysis
 )
 
@@ -20,6 +20,6 @@ image_analysis_agent = Agent(
     handoff_description="Analyse a patient image medical scan",
     instructions=image_analysis_agent_prompt,
     tools=[analyze_image_scan],
-    model=get_model(),
+    model=get_model("agent"),
     output_type=ReportAnalysis
 )

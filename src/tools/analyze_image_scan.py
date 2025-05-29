@@ -49,10 +49,10 @@ async def image_scan_analysis(query: str, context: UserContext):
         ]
 
     response = client.responses.parse(
-        model=get_model(),
+        model=get_model("medical"),
         input=input,
         text_format=ReportAnalysis,
-        temperature=1,
+        temperature=0.2,
         max_output_tokens=2048,
         top_p=1,
     )

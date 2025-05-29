@@ -7,6 +7,7 @@ from html import escape
 from app import orchestrator_agent, UserContext
 from agents import InputGuardrailTripwireTriggered, Runner
 
+from models.orchestrator_models import StructuredResponse
 from models.tool_models import Diagnosis, PatientResponse, PubMedResponse, ReportAnalysis
 
 # Page configuration
@@ -289,43 +290,44 @@ if "processing_message" not in st.session_state:
 def format_agent_response(output):
     html = ""
     
-    if isinstance(output, PatientResponse):  # Patient Retrieval
-        html = f"""
-        <div class="patient-section">
-            <h3 class="section-title">👤 Patient Details: {output.patient_name}</h3>
-            <div class="patient-content">
-                <p class="patient-line"><strong>Patient ID:</strong> {output.patient_id}</p>
-                <p class="patient-line"><strong>Name:</strong> {output.patient_name}</p>
-                <p class="patient-line"><strong>Age:</strong> {str(output.age)} days</p>
-                <p class="patient-line"><strong>Gender:</strong> {output.gender}</p>
+    if isinstance(output, list) and all(isinstance(p, PatientResponse) for p in output):
+        for idx, patient in enumerate(output, 1):  # Patient Retrieval
+            html += f"""
+            <div class="patient-section">
+                <h3 class="section-title">👤 Patient Details: {patient.patient_name}</h3>
+                <div class="patient-content">
+                    <p class="patient-line"><strong>Patient ID:</strong> {patient.patient_id}</p>
+                    <p class="patient-line"><strong>Name:</strong> {patient.patient_name}</p>
+                    <p class="patient-line"><strong>Age:</strong> {str(patient.age)}</p>
+                    <p class="patient-line"><strong>Gender:</strong> {patient.gender}</p>
 
-                <h4 class="subsection-title">Medical History:</h4>
-                <ul class="data-list">
-        """
-        for history in output.medical_history:
-            html += f"<li class='data-item'>{history}</li>"
-        html += """
-                </ul>
-                <h4 class="subsection-title">Lab Reports:</h4>
-                <ul class="data-list">
-        """
-        for report in output.lab_reports:
-            html += f"<li class='data-item'>{report}</li>"
-        html += f"""
-                </ul>
-                <h4 class="subsection-title">Diagnosis:</h4> 
-                <p class="patient-line"><strong>{output.diagnosis}</p>
-
-                <h4 class="subsection-title">Recommendations:</h4>
-                <ul class="data-list">
-        """
-        for recommendation in output.recommendations:
-            html += f"<li class='data-item'>{recommendation}</li>"
-        html += """
+                    <h4 class="subsection-title">Medical History:</h4>
+                    <ul class="data-list">
+            """
+            for history in patient.medical_history:
+                html += f"<li class='data-item'>{history}</li>"
+            html += """
                     </ul>
+                    <h4 class="subsection-title">Lab Reports:</h4>
+                    <ul class="data-list">
+            """
+            for report in patient.lab_reports:
+                html += f"<li class='data-item'>{report}</li>"
+            html += f"""
+                    </ul>
+                    <h4 class="subsection-title">Diagnosis:</h4> 
+                    <p class="patient-line"><strong>{patient.diagnosis}</strong></p>
+
+                    <h4 class="subsection-title">Recommendations:</h4>
+                    <ul class="data-list">
+            """
+            for recommendation in patient.recommendations:
+                html += f"<li class='data-item'>{recommendation}</li>"
+            html += """
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        """
+            """
         return html
 
         
@@ -395,11 +397,16 @@ def format_agent_response(output):
         
         return html
     
-    else:
-        html = f"{output.get('response', 'N/A')}"
-    
-    # Default
-    return html
+    elif isinstance(output, StructuredResponse):
+        html = f"""
+        <div class="structured-response">
+            <h3>Response</h3>
+            <p>{output.response}</p>
+            <h4>Assertion</h4>
+            <p>{output.assertion}</p>
+        </div>
+        """
+        return html
 
 # Function to handle user input
 def handle_user_message(user_input: str):

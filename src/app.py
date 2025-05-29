@@ -3,6 +3,7 @@ import os
 from agents import Agent, GuardrailFunctionOutput, InputGuardrail, InputGuardrailTripwireTriggered, Runner, set_tracing_export_api_key
 from dotenv import load_dotenv
 
+from helpers.utils import get_model
 from prompts.orchestrator_prompt import orchestrator_agent_prompt
 
 from models.orchestrator_models import StructuredResponse
@@ -10,6 +11,7 @@ from models.guardrail_models import QueryAnalysis
 
 from context.user_context import UserContext
 
+from specialized_agents.follow_up_agent import follow_up_agent
 from specialized_agents.query_analysis_agent import query_analysis_agent
 from specialized_agents.pubmed_retriever_agent import pubmed_retriever_agent
 from specialized_agents.patient_retriever_agent import patient_retriever_agent
@@ -23,10 +25,7 @@ load_dotenv()
 # Set tracing export API key if needed
 set_tracing_export_api_key(os.getenv('OPENAI_API_KEY'))
 
-model = os.getenv('MODEL_CHOICE', 'gpt-4o-mini')
-
 # Guardrails
-
 async def medical_guardrail(ctx, agent, input_data):
     """Check if the input data is related to medical queries."""
     try:
@@ -48,12 +47,11 @@ async def medical_guardrail(ctx, agent, input_data):
         )
 
 # Orchestrator agent
-
 orchestrator_agent = Agent(
     name="Orchestrator Agent",
     instructions=orchestrator_agent_prompt,
-    model = model,
-    handoffs=[pubmed_retriever_agent, patient_retriever_agent, diagnose_agent, report_analysis_agent],
+    model = get_model("agent"),
+    handoffs=[pubmed_retriever_agent, patient_retriever_agent, diagnose_agent, report_analysis_agent, follow_up_agent],
     input_guardrails=[InputGuardrail(guardrail_function=medical_guardrail)],
     output_type=StructuredResponse
 )
