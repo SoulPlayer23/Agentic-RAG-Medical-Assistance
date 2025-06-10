@@ -2,7 +2,6 @@ import streamlit as st
 import asyncio
 import uuid
 from datetime import datetime
-from html import escape
 
 from app import orchestrator_agent, UserContext
 from agents import InputGuardrailTripwireTriggered, Runner
@@ -268,6 +267,20 @@ f"""
         list-style-type: disc;
         color: #a3a3a3;
     }}
+
+    /* Structured Response Section */
+
+    .structured-response {{
+        background: #1a1a1a;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+    }}
+
+    .structured-content {{
+        color: #a3a3a3;
+        line-height: 1.6;
+    }}
     </style>
     """)
 
@@ -334,12 +347,32 @@ def format_agent_response(output):
     elif isinstance(output, Diagnosis):  # Diagnosis
         html = f"""
         <div class="diagnosis-section">
-        <h3 class="section-title">🩺 Diagnosis</h3>
-        <div class="diagnosis-content">
-            <p class="diagnosis-line"><strong>Symptoms:</strong> {output.symptoms}</p>
-            <p class="diagnosis-line"><strong>Diagnosis:</strong> {output.diagnosis}</p>
-            <p class="diagnosis-line"><strong>Confidence:</strong> {output.confidence}</p>
+            <h3 class="section-title">🩺 Diagnosis</h3>
+            <div class="diagnosis-content">
+                <p class="diagnosis-line"><strong>Symptoms:</strong> {', '.join(output.symptoms).capitalize()}</p>
+                <p class="diagnosis-line"><strong>Diagnosis:</strong> {output.diagnosis}</p>
+        """
 
+        # Precautions
+        html += """
+            <h4 class="subsection-title">Precautions:</h4>
+            <ul class="data-list">
+        """
+        for precaution in output.precautions:
+            html += f"<li class='data-item'>{precaution.capitalize()}</li>"
+        html += "</ul>"
+
+        # Medications
+        html += """
+            <h4 class="subsection-title">Medications:</h4>
+            <ul class="data-list">
+        """
+        for medication in output.medications:
+            html += f"<li class='data-item'>{medication}</li>"
+        html += "</ul>"
+
+        # Recommendations
+        html += """
             <h4 class="recommendation-title">Recommendations:</h4>
             <ul class="recommendation-list">
         """
@@ -347,7 +380,7 @@ def format_agent_response(output):
             html += f"<li class='recommendation-item'>{recommendation}</li>"
         html += """
             </ul>
-        </div>
+            </div>
         </div>
         """
         return html
@@ -400,10 +433,12 @@ def format_agent_response(output):
     elif isinstance(output, StructuredResponse):
         html = f"""
         <div class="structured-response">
-            <h3>Response</h3>
-            <p>{output.response}</p>
-            <h4>Assertion</h4>
-            <p>{output.assertion}</p>
+            <div class="structured-content">
+                <h3 class="subsection-title">Response</h3>
+                <p>{output.response}</p>
+                <h4 class="subsection-title">Assertion</h4>
+                <p>{output.assertion}</p>
+            </div>
         </div>
         """
         return html

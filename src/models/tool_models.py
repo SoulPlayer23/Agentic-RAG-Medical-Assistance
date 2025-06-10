@@ -21,7 +21,10 @@ class PatientResponse(BaseModel):
 class Diagnosis(BaseModel):
     symptoms: List[str]
     diagnosis: str
-    confidence: float = Field(description="Confidence level of the diagnosis (0 to 1).")
+    precautions: List[str] = Field(description="Precautions to take based on the diagnosis.")
+    medications: List[str] = Field(description="Medications recommended for the diagnosis.")
+    workouts: List[str] = Field(description="Recommended workouts for the patient.")
+    diet: List[str] = Field(description="Dietary recommendations for the patient.")
     recommendations: List[str] = Field(description="Recommendations for the patient based on the diagnosis.")
 
 # Model for Report Analysis

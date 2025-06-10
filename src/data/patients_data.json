@@ -1,0 +1,517 @@
+[
+  {
+    "patient_id": "PID98765",
+    "patient_name": "Emma Wilson",
+    "age": 42,
+    "gender": "Female",
+    "medical_history": [
+      "Asthma (persistent)",
+      "Hypertension",
+      "Snoring"
+    ],
+    "lab_reports": [
+      "Blood oxygen levels: 98%",
+      "Chest X-ray shows wheezing and shortness of breath"
+    ],
+    "diagnosis": "Asthma"
+  },
+  {
+    "patient_id": "PID15678",
+    "patient_name": "Michael Thompson",
+    "age": 49,
+    "gender": "Male",
+    "medical_history": [
+      "Type 2 Diabetes Mellitus (undiagnosed for 3 years)",
+      "Obstructive Pulmonary Disease (OPD) since diagnosis at age 30",
+      "High BMI and sedentary lifestyle",
+      "Family history of hypertension"
+    ],
+    "lab_reports": [
+      "HbA1c: 7%",
+      "Blood pressure readings: 140/90 mmHg",
+      "LDL cholesterol: 125 mg/dL"
+    ],
+    "diagnosis": "Type 2 Diabetes Mellitus"
+  },
+  {
+    "patient_id": "PID45678",
+    "patient_name": "Sarah Mitchell",
+    "age": 62,
+    "gender": "Female",
+    "medical_history": [
+      "High Blood Pressure (since 15)",
+      "Type 2 Diabetes Mellitus"
+    ],
+    "lab_reports": [
+      "Cholesterol: 250 mg/dL",
+      "Creatinine: 1.3 mg/mL",
+      "Iron Binding Capacity: 48 g/dL"
+    ],
+    "diagnosis": "Alzheimer's Disease"
+  },
+  {
+    "patient_id": "PID68121",
+    "patient_name": "Emily Davis",
+    "age": 34,
+    "gender": "Female",
+    "medical_history": [
+      "Course of Streptococcus pyogenes infection (strep throat)",
+      "Previous incomplete recovery of strep infection",
+      "Hypertension (diagnosed at age 28)"
+    ],
+    "lab_reports": [
+      "White cell count: 12,000 x/μL",
+      "CRP level: 5.2 mg/L",
+      "ESR: 4 hours"
+    ],
+    "diagnosis": "Epiglottis Divis"
+  },
+  {
+    "patient_id": "PAT43210",
+    "patient_name": "William Johnson",
+    "age": 52,
+    "gender": "Male",
+    "medical_history": [
+      "Down syndrome",
+      "Spina Bifida"
+    ],
+    "lab_reports": [
+      "MRI showed spinal cord abnormalities",
+      "Blood pressure readings elevated"
+    ],
+    "diagnosis": "Cerebral Palsy (associated with genetic factors)"
+  },
+  {
+    "patient_id": "PID12345",
+    "patient_name": "Emily Rodriguez",
+    "age": 58,
+    "gender": "Female",
+    "medical_history": [
+      "Early signs of neurodegeneration (tremors, rigidity) since early adulthood",
+      "Degenerative joint disease (arthritis) progressing over the past decade",
+      "Cognitive impairment (memory and attention issues) noticed in recent years"
+    ],
+    "lab_reports": [
+      "MRI showed degeneration of brain structures near the midbrain region",
+      "Blood tests revealed elevated tau protein levels (150 ng/mL) indicative of Parkinson's pathology"
+    ],
+    "diagnosis": "Parkinson's Disease"
+  },
+  {
+    "patient_id": "PID84059",
+    "patient_name": "Sophia Martinez",
+    "age": 42,
+    "gender": "Female",
+    "medical_history": [
+      "Chronic Obstructive Pulmonary Disease (COPD) since 15 years",
+      "Past Medical History of Allergic Rhinitis"
+    ],
+    "lab_reports": [
+      "FEV1% predicted: 75%",
+      "PEF drop to normal: 30-40%",
+      "High-normal lung function with normal diffusion capacity"
+    ],
+    "diagnosis": "Asthma"
+  },
+  {
+    "patient_id": "PID90789",
+    "patient_name": "John Doe",
+    "age": 42,
+    "gender": "Male",
+    "medical_history": [
+      "Crohn's Disease (since 15)",
+      "High Blood Pressure (diagnosed at 30)"
+    ],
+    "lab_reports": [
+      "Hemoglobin A1C: 7.8%",
+      "Cholesterol: High LDL cholesterol"
+    ],
+    "diagnosis": "Crohn's Disease"
+  },
+  {
+    "patient_id": "PID54321",
+    "patient_name": "John Smith",
+    "age": 52,
+    "gender": "Male",
+    "medical_history": [
+      "Hypertension since 50",
+      "High Cholesterol levels",
+      "Diabetes Mellitus"
+    ],
+    "lab_reports": [
+      "ECG showed signs of ischemia",
+      "LDL cholesterol: 160 mg/dL",
+      "A1C level: 7.8%"
+    ],
+    "diagnosis": "Coronary Artery Disease"
+  },
+  {
+    "patient_id": "PID123456",
+    "patient_name": "Emily Carter",
+    "age": 55,
+    "gender": "Female",
+    "medical_history": [
+      "Periodontal disease (gastrointestinal bleeding)",
+      "Regular dental check-ups but without professional care"
+    ],
+    "lab_reports": [
+      "Tooth decay in maxillary incisors",
+      "Gingival inflammation"
+    ],
+    "diagnosis": "Periodontal Disease"
+  },
+  {
+    "patient_id": "PID23456",
+    "patient_name": "James Wilson",
+    "age": 78,
+    "gender": "Male",
+    "medical_history": [
+      "Hypertension for 10 years",
+      "High cholesterol levels"
+    ],
+    "lab_reports": [
+      "Cognitive function test showed mild memory impairment",
+      "Mini-Mental State Examination score: 23/30"
+    ],
+    "diagnosis": "Alzheimer's Disease"
+  },
+  {
+    "patient_id": "PID56789",
+    "patient_name": "Sarah Johnson",
+    "age": 45,
+    "gender": "Female",
+    "medical_history": [
+      "Diabetes Mellitus type 2",
+      "Family history of ulcerative colitis",
+      "Gastrointestinal issues"
+    ],
+    "lab_reports": [
+      "A1c: 7.8%",
+      "High cholesterol levels",
+      "Inflammatory markers elevated"
+    ],
+    "diagnosis": "Ulcerative Colitis, possible anemia as a complication"
+  },
+  {
+    "patient_id": "PID78901",
+    "patient_name": "Sarah Jane Thompson",
+    "age": 45,
+    "gender": "Female",
+    "medical_history": [
+      "High Blood Pressure (since 20)",
+      "Type 2 Diabetes Mellitus (T2DM)"
+    ],
+    "lab_reports": [
+      "Creatinine: 1.8 mg/dL",
+      "Blood Urea Nitrogen (BUN): 45 mg/dL"
+    ],
+    "diagnosis": "Renal Failure: Nephrotic Syndrome"
+  },
+  {
+    "patient_id": "PID789012",
+    "patient_name": "Sarah Patricia Johnson",
+    "age": 56,
+    "gender": "Female",
+    "medical_history": [
+      "Hypertension (since 2015)",
+      "High blood pressure readings",
+      "Obesity"
+    ],
+    "lab_reports": [
+      "A1C: 7.2%",
+      "LDL cholesterol: 148 mg/dL",
+      "BMI: 31"
+    ],
+    "diagnosis": "Coronary Artery Disease"
+  },
+  {
+    "patient_id": "PID27689",
+    "patient_name": "Emily Rodriguez-Parker",
+    "age": 32,
+    "gender": "Female",
+    "medical_history": [
+      "Periodontal Disease",
+      "Gingivitis (mild)"
+    ],
+    "lab_reports": [
+      "Gum Lesions present",
+      "牙周探查深度: 5 mm"
+    ],
+    "diagnosis": "Dental Caries"
+  },
+  {
+    "patient_id": "PID178902",
+    "patient_name": "Emma Wilson-Joseph",
+    "age": 34,
+    "gender": "Female",
+    "medical_history": [
+      "Periodontal Disease (since 2015)",
+      "Gingivitis (occasional)",
+      "Scaling and Root Planing History"
+    ],
+    "lab_reports": [
+      "Vitamin C levels: 18 mg/mL",
+      "Tooth decay percentage: 35%",
+      "Caries prevalence rate: 25%"
+    ],
+    "diagnosis": "Dental Caries"
+  },
+  {
+    "patient_id": "PID87901",
+    "patient_name": "Emily Wilson",
+    "age": 54,
+    "gender": "Female",
+    "medical_history": [
+      "Pulmonary Tuberculosis (ever diagnosed)",
+      "Low immunity status due to past exposure"
+    ],
+    "lab_reports": [
+      "Chest X-ray showed signs of consolidation in the left lung",
+      "Blood tests revealed elevated liver enzymes and low CD4 T cell count"
+    ],
+    "diagnosis": "Tuberculosis"
+  },
+  {
+    "patient_id": "PID25214",
+    "patient_name": "Emily White",
+    "age": 54,
+    "gender": "Female",
+    "medical_history": [
+      "Previous heart attack (at age 48)",
+      "Hypertension (diagnosed at age 36)"
+    ],
+    "lab_reports": [
+      "CK-MB: elevated (720 U/L, normal <120 U/L)",
+      "BNP: increased (550 nmol/L, normal <1500 nmol/L)"
+    ],
+    "diagnosis": "Congestive Heart Failure (CHF)"
+  },
+  {
+    "patient_id": "PAT87654",
+    "patient_name": "Davidson Reed",
+    "age": 67,
+    "gender": "Male",
+    "medical_history": [
+      "Adequate age with no prior major trauma",
+      "Osteoarthritis of hip and knee (25 years)"
+    ],
+    "lab_reports": [
+      "Fasting blood sugar: 102 mg/dL",
+      "Total cholesterol: 245 mg/dL"
+    ],
+    "diagnosis": "Osteoarthritis of Hip and Knee"
+  },
+  {
+    "patient_id": "PID90876",
+    "patient_name": "Sarah-Jane Williams",
+    "age": 54,
+    "gender": "Female",
+    "medical_history": [
+      "Inflammatory Bowel Disease (IBD)",
+      "Osteoarthritis",
+      "Coronary Artery Disease"
+    ],
+    "lab_reports": [
+      "ESR: 8 mm/h, CRP: 2.3 mg/L, C reactive protein: 45 mcg/mL",
+      "A1C: 6.5%",
+      "High LDL cholesterol: 140 mg/dL"
+    ],
+    "diagnosis": "Rheumatoid Arthritis (secondary to systemic disease)"
+  },
+  {
+    "patient_id": "PAT12345",
+    "patient_name": "Sarah-Mae Johnson",
+    "age": 55,
+    "gender": "Female",
+    "medical_history": [
+      "Hypertension (since 2010)",
+      "Type 2 Diabetes Mellitus (diag 2015)"
+    ],
+    "lab_reports": [
+      "ECG showed signs of ischemia",
+      "BP: 140/90 mmHg"
+    ],
+    "diagnosis": "Stroke"
+  },
+  {
+    "patient_id": "PID678901",
+    "patient_name": "Emma Wilson-Jameson",
+    "age": 45,
+    "gender": "Female",
+    "medical_history": [
+      "Asthma (for 12 years)",
+      "Asthma- associated eczema",
+      "Hay fever/ rhinitis"
+    ],
+    "lab_reports": [
+      "ESR: 7.8 mm/hour, CRP: 0.5 mg/mL",
+      "Positive to allergen testing for pollen, dust mites"
+    ],
+    "diagnosis": "Asthma"
+  },
+  {
+    "patient_id": "PID12346",
+    "patient_name": "Olivia Martinez-Diaz",
+    "age": 35,
+    "gender": "Female",
+    "medical_history": [
+      "Spina Bifida, Arnold-Chiari Malformation",
+      "Heterotaxy, Distal Hydropsia"
+    ],
+    "lab_reports": [
+      "Blood pressure: 140/90 mmHg",
+      "Cholesterol: High"
+    ],
+    "diagnosis": "Spina Bifida"
+  },
+  {
+    "patient_id": "PID88638",
+    "patient_name": "John Smith Jr.",
+    "age": 45,
+    "gender": "Male",
+    "medical_history": [
+      "Obesity (BMI: 32)",
+      "Type 2 Diabetes Mellitus (DM2, HbA1C: 7.8%)",
+      "Hypertension (on medications since 10 years)"
+    ],
+    "lab_reports": [
+      "BMI: 32.5 kg/m²",
+      "A1C: 7.8%",
+      "Triglycerides: 205 mg/dL"
+    ],
+    "diagnosis": "Obesity"
+  },
+  {
+    "patient_id": "PID40337",
+    "patient_name": "Jane Smith",
+    "age": 65,
+    "gender": "Female",
+    "medical_history": [
+      "High blood pressure since diagnosis",
+      "Type 2 Diabetes Mellitus for 10 years",
+      "Past heart attack in 2018"
+    ],
+    "lab_reports": [
+      "LDL cholesterol: 160 mg/dL",
+      "Resting blood pressure: 145/95 mmHg"
+    ],
+    "diagnosis": "Coronary Artery Disease"
+  },
+  {
+    "patient_id": "PID91086",
+    "patient_name": "Jane Doe",
+    "age": 45,
+    "gender": "Female",
+    "medical_history": [
+      "HIV/AIDS (CD4 Low, Viral Load High)",
+      "High Cholesterol"
+    ],
+    "lab_reports": [
+      "CD4 T-cell count: 350",
+      "Viral Load: 12,000 copies/mL"
+    ],
+    "diagnosis": "HIV/AIDS"
+  },
+  {
+    "patient_id": "PID78902",
+    "patient_name": "Emily Wilson-Parker",
+    "age": 52,
+    "gender": "Female",
+    "medical_history": [
+      "Cirrhosis of the Liver due to chronic alcohol abuse (10 years)",
+      "Hypertension for 5 years",
+      "Type 2 Diabetes Mellitus with high fasting blood glucose levels"
+    ],
+    "lab_reports": [
+      "Fasting blood glucose: 136 mg/dL, HbA1c: 7.8%",
+      "Blood pressure readings: 140/90 mmHg",
+      "Liver enzymes elevated (ALT: 52 U/L)"
+    ],
+    "diagnosis": "Cirrhosis of the Liver"
+  },
+  {
+    "patient_id": "PID178903",
+    "patient_name": "David Michaelson-Johnson",
+    "age": 65,
+    "gender": "Male",
+    "medical_history": [
+      "Obesity",
+      "Family History of Diabetes"
+    ],
+    "lab_reports": [
+      "A1C: 7.8%",
+      "Blood Glucose: 200 mg/dL",
+      "HbA1c: 7.6%"
+    ],
+    "diagnosis": "Type 2 Diabetes Mellitus"
+  },
+  {
+    "patient_id": "PID123456789",
+    "patient_name": "Aurora Vossen",
+    "age": 45,
+    "gender": "Female",
+    "medical_history": [
+      "Obesity (BMI >30)",
+      "Type 2 Diabetes Mellitus",
+      "Family history of diabetes",
+      "Gained significant weight over the past decade"
+    ],
+    "lab_reports": [
+      "HbA1c: 8%",
+      "BMI: 32 kg/m²",
+      "Fasting blood sugar: ~140 mg/dL"
+    ],
+    "diagnosis": "Type 2 Diabetes Mellitus"
+  },
+  {
+    "patient_id": "PID198765",
+    "patient_name": "Sarah-Mae Carter",
+    "age": 58,
+    "gender": "Female",
+    "medical_history": [
+      "Congestive Heart Failure (since 2015)",
+      "Prior heart attack at age 50",
+      "High blood pressure history"
+    ],
+    "lab_reports": [
+      "Ejection fraction: 35%",
+      "Blood pressure: 140/90 mmHg"
+    ],
+    "diagnosis": "Congestive Heart Failure"
+  },
+  {
+    "patient_id": "PID76981",
+    "patient_name": "Emily Wilson-Brown",
+    "age": 49,
+    "gender": "Female",
+    "medical_history": [
+      "Type 2 Diabetes Mellitus",
+      "Uncontrolled Hyperglycemia",
+      "Obesity"
+    ],
+    "lab_reports": [
+      "A1C: 8.4%",
+      "Blood Pressure: 130/85 mmHg",
+      "Hyperglycemia during pregnancy"
+    ],
+    "diagnosis": "Type 2 Diabetes Mellitus"
+  },
+  {
+    "patient_id": "PID85647",
+    "patient_name": "Sarah Johnson-Miller",
+    "age": 54,
+    "gender": "Female",
+    "medical_history": [
+      "Coronary Artery Disease (since 10 years)",
+      "Tuberculosis (active, treated with TBX therapy)",
+      "Past heart attack at age 48",
+      "High blood pressure"
+    ],
+    "lab_reports": [
+      "Elevated troponin levels on ECG ( suggestive of ischemic cardiomyopathy)",
+      "Positive TB skin test in December 2022",
+      "Streptococcus pneumoniae throat culture negative as of March 2023"
+    ],
+    "diagnosis": "Leukoencephalopathy from Tuberculosis Coronary Artery Disease"
+  }
+]

@@ -36,7 +36,7 @@ pubmed_retriever_prompt = """
 diagnosis_prompt = """
     You are a medical diagnosis agent designed to help users with diagnosing medical conditions based on symptoms and providing recommendations.
 
-    Your task is to identify potential medical conditions based on the user provided symptoms and provide recommendations for the patient.
+    Your task is to identify potential disease based on the user provided symptoms and provide recommendations for the patient.
 
     Recommendations could either be a precaution or a treatment plan based on the diagnosis.
     
@@ -45,6 +45,15 @@ diagnosis_prompt = """
     If the symptoms do not match any known conditions, provide a message indicating that no diagnosis could be made.
 
     Your response should be a structured response with necessary details about the diagnosis and recommendations.
+
+    The input to the agent will be a list of strings representing the symptoms provided by the user.
+    
+    The input should be extracted similar to the following examples:
+    User Query: "I have a headache, fever, and cough."
+    Extracted Symptoms: ["headache", "fever", "cough"]
+
+    User Query: "I am experiencing chest pain and shortness of breath."
+    Extracted Symptoms: ["chest pain", "shortness of breath"]
 """
 
 report_analysis_prompt = """
