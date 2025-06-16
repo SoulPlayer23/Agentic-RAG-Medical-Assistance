@@ -78,6 +78,7 @@ async def main():
 
         try:
             result = await Runner.run(orchestrator_agent, query, context=user_context)
+            print("Result:", result)
         
             print("\nFINAL RESPONSE:")
             

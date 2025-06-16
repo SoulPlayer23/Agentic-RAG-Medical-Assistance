@@ -74,7 +74,7 @@ report_analysis_prompt = """
 query_analysis_prompt = """
 You analyze whether the user's query is related to medical topics or not.
     Consider the following while responding:
-    - Is the query related to medical research, patient data, or general medical information?
+    - Is the query related to medical research, patient data, a follow-up of previous response or general medical information?
     - Provide a structured response with a boolean indicating if the query is medical or not.
     - Provide a reasoning for your decision.
 """

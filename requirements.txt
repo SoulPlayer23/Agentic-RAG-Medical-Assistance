@@ -32,7 +32,7 @@ mdurl==0.1.2
 narwhals==1.30.0
 neo4j==5.28.1
 neo4j-graphrag[qdrant]
-numpy==2.2.3
+numpy==1.26.4
 openai==1.66.3
 openai-agents==0.0.4
 opentelemetry-api==1.31.0
