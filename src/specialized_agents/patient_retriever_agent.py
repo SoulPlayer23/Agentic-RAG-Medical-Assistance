@@ -2,7 +2,7 @@ from agents import Agent
 
 from helpers.utils import get_model
 from models.tool_models import PatientResponse
-from tools.patient_details import patient_retriever
+from tools.patients import patient_retriever
 from prompts.specialized_agent_prompts import patient_retriever_prompt
 
 patient_retriever_agent = Agent(
