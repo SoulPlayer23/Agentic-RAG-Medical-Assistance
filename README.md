@@ -54,7 +54,7 @@ Based on internal evaluation and benchmark results:
 
 1. **Clone the repository:**
    ```sh
-   git clone <your-repo-url>
+   git clone `https://github.com/SoulPlayer23/Agentic-RAG-Medical-Assistance.git`
    cd Medicortex-AI
    ```
 2. **Create and activate a Python environment (recommended):**
