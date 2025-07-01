@@ -15,7 +15,7 @@ def get_src_path():
     return os.getenv('BASE_PATH', '')
 
 def load_auxiliary_disease_data():
-    base_path = get_src_path() + r'src\data\diagnosis-dataset'
+    base_path = os.path.join(get_src_path(), 'src', 'data', 'diagnosis-dataset')
     print("Loading auxiliary disease data from:", base_path)
     if not os.path.exists(base_path):
         raise FileNotFoundError(f"Base path does not exist: {base_path}")

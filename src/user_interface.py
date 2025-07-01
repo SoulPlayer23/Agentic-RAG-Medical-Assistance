@@ -351,6 +351,7 @@ def format_agent_response(output):
             <div class="diagnosis-content">
                 <p class="diagnosis-line"><strong>Symptoms:</strong> {', '.join(output.symptoms).capitalize()}</p>
                 <p class="diagnosis-line"><strong>Diagnosis:</strong> {output.diagnosis}</p>
+                <p class="diagnosis-line"><strong>Description:</strong> {output.description}</p>
         """
 
         # Precautions

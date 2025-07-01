@@ -1,4 +1,5 @@
 import ast
+import os
 from typing import Any, List
 from agents import RunContextWrapper, function_tool
 import joblib
@@ -17,8 +18,8 @@ class Recommendation_list(BaseModel):
     recommendations: List[str]
 
 src_path = get_src_path()
-model = joblib.load(src_path + r'src\ai_models\diagnosis_model.pkl')  # Load the pre-trained model
-label_encoder = joblib.load(src_path + r'src\ai_models\label_encoder.pkl')  # Load the label encoder
+model = joblib.load(os.path.join(src_path, 'src', 'ai_models', 'diagnosis_model.pkl'))  # Load the pre-trained model
+label_encoder = joblib.load(os.path.join(src_path, 'src', 'ai_models', 'label_encoder.pkl'))  # Load the label encoder
 
 @function_tool
 def diagnose(wrapper: RunContextWrapper[UserContext], symptoms: List[str]):
@@ -48,7 +49,8 @@ def analyze_symptoms(input_symptoms: List[str], aux_data: dict[str, Any]) -> Dia
 
     return Diagnosis(
         symptoms=input_symptoms,
-        diagnosis=predicted_disease + disease_description,
+        diagnosis=predicted_disease,
+        description= disease_description,
         precautions=disease_precautions,
         medications=disease_medications,
         workouts=disease_workout,

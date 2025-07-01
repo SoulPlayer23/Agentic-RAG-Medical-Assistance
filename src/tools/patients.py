@@ -1,23 +1,23 @@
 import json
+import os
 from typing import List, Optional, Dict, Any
 from pydantic import BaseModel
 from agents import RunContextWrapper, function_tool
 from openai import OpenAI
 from qdrant_client import QdrantClient, models
 from qdrant_client.http.models import Distance, VectorParams, PayloadSchemaType, Filter, FieldCondition, MatchValue
-from qdrant_client.conversions import common_types as types
 from context.user_context import UserContext
 from helpers.utils import get_model
 from models.tool_models import PatientResponse
-import numpy as np
 
 # Initialize clients with proper configuration
 try:
     client = OpenAI()
     qdrant_client = QdrantClient(
-        host="homeserver",
-        port=6333,
+        host=os.getenv("QDRANT_HOST", "localhost"),
+        port=int(os.getenv("QDRANT_PORT", "6333")),
         prefer_grpc=True,
+        grpc_port=int(os.getenv("QDRANT_GRPC_PORT", "6334")),
         timeout=10.0  # Add reasonable timeout
     )
     

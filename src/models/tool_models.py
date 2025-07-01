@@ -21,6 +21,7 @@ class PatientResponse(BaseModel):
 class Diagnosis(BaseModel):
     symptoms: List[str]
     diagnosis: str
+    description: str = Field(description="Detailed description of the diagnosis.")
     precautions: List[str] = Field(description="Precautions to take based on the diagnosis.")
     medications: List[str] = Field(description="Medications recommended for the diagnosis.")
     workouts: List[str] = Field(description="Recommended workouts for the patient.")
