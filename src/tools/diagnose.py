@@ -83,18 +83,21 @@ def predict_disease(input_vector):
 def get_disease_info(disease_name, disease_list):
     if disease_name in disease_list:
         disease_description = AUX_DATA['description'][AUX_DATA['description']['Disease'] == disease_name]['Description']
-        disease_description = " ".join([w for w in disease_description])
-    
+        disease_description = " ".join([str(w) for w in disease_description if pd.notnull(w)])
+
         disease_precautions = AUX_DATA['precautions'][AUX_DATA['precautions']['Disease'] == disease_name][['Precaution_1', 'Precaution_2', 'Precaution_3', 'Precaution_4']]
-        disease_precautions = disease_precautions.values.flatten().tolist()
+        disease_precautions = [str(x) for x in disease_precautions.values.flatten().tolist() if pd.notnull(x)]
 
         medications = AUX_DATA['medications'][AUX_DATA['medications']['Disease'] == disease_name]['Medication'].tolist()
         disease_medications = ast.literal_eval(medications[0]) if medications else []
+        disease_medications = [str(x) for x in disease_medications if pd.notnull(x)]
 
         diets = AUX_DATA['diets'][AUX_DATA['diets']['Disease'] == disease_name]['Diet'].tolist()
         disease_diet = ast.literal_eval(diets[0]) if diets else []
-        
+        disease_diet = [str(x) for x in disease_diet if pd.notnull(x)]
+
         disease_workout = AUX_DATA['workout'][AUX_DATA['workout']['disease'] == disease_name]['workout'].tolist()
+        disease_workout = [str(x) for x in disease_workout if pd.notnull(x)]
 
         return disease_description, disease_precautions, disease_medications, disease_diet, disease_workout
     else:
@@ -106,10 +109,10 @@ def recommendations(input_symptoms, predicted_disease, disease_description, dise
         f"Symptoms: {input_symptoms}\n"
         f"Disease: {predicted_disease}\n"
         f"Description: {disease_description}\n"
-        f"Precautions: {', '.join(disease_precautions)}\n"
-        f"Medications: {', '.join(disease_medications)}\n"
-        f"Workouts: {', '.join(disease_workout)}\n"
-        f"Diet: {', '.join(disease_diet)}\n\n"
+        f"Precautions: {', '.join(str(x) for x in disease_precautions)}\n"
+        f"Medications: {', '.join(str(x) for x in disease_medications)}\n"
+        f"Workouts: {', '.join(str(x) for x in disease_workout)}\n"
+        f"Diet: {', '.join(str(x) for x in disease_diet)}\n\n"
         "Based on the above, provide a brief medical recommendation in no more than 3 points.")
     response = client.responses.parse(
         model=get_model("medical"),
