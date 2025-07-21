@@ -26,7 +26,7 @@ def fetch_papers(from_date: str, to_date: str, top_n_papers: int, keyword: str):
     for paper in papers:
         response = PubMedResponse(
             title=str(paper.title),
-            abstract=str(paper.abstract)
+            abstract=str(paper.abstract) if paper.abstract else "Abstract not available",
         )
         pubmed_responses.append(response)
     return pubmed_responses
